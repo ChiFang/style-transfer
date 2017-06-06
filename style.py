@@ -437,9 +437,17 @@ class StyleTransfer(object):
         # compute data bounds
         data_min = -self.transformer.mean["data"][:,0,0]
         data_max = data_min + self.transformer.raw_scale["data"]
-        data_bounds = [(data_min[0], data_max[0])]*(img0.size/3) + \
-                      [(data_min[1], data_max[1])]*(img0.size/3) + \
-                      [(data_min[2], data_max[2])]*(img0.size/3)
+        
+        print(data_min)
+        print(data_max)
+        print("img0.size: " + str(img0.size))
+        print("img0.size / 3: " + str(img0.size/3))
+        #print ([(data_min[0], data_max[0])])
+        #print ([(data_min[0], data_max[0])] * 2)
+        sub_bound_size = int(img0.size/3)
+        data_bounds = [(data_min[0], data_max[0])]*sub_bound_size + \
+                      [(data_min[1], data_max[1])]*sub_bound_size + \
+                      [(data_min[2], data_max[2])]*sub_bound_size
 
         # optimization params
         grad_method = "L-BFGS-B"
